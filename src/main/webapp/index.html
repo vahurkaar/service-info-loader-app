@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Service info</title>
+
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/angular/angular.js"></script>
+    <script src="static/angular/angular-translate.min.js"></script>
+    <script src="static/angular/angular-translate-loader-static-files.min.js"></script>
+    <script src="static/angular/controllers.js"></script>
+</head>
+<body>
+<div class="container" ng-controller="ServiceInfoController">
+    <div class="row">{{ 'SERVICE_INFO.QUERY_ID' | translate }}: {{serviceInfo.index}}</div>
+
+    <div ng-show="serviceInfo.contactPhone" class="row">
+        {{ 'SERVICE_INFO.CONTACT_PHONE' | translate }}: {{serviceInfo.contactPhone}}
+    </div>
+
+    <div ng-show="serviceInfo.language" class="row">
+        {{ 'SERVICE_INFO.LANGUAGE_TITLE' | translate }}: {{ 'SERVICE_INFO.LANGUAGE.' + serviceInfo.language | translate }}
+    </div>
+
+    <div ng-switch="serviceInfo.status">
+        <div ng-switch-when="A">
+            <div ng-show="serviceInfo.serviceEndDate" class="row">
+                {{ 'SERVICE_INFO.ACTIVE_UNTIL' | translate }} {{serviceInfo.serviceEndDate}}
+            </div>
+
+            <div ng-switch="serviceInfo.activeXlService" class="row">
+                <div ng-switch-when="true">
+                    {{ 'SERVICE_INFO.XL_SERVICE_ACTIVE' | translate }} ({{serviceInfo.xlServiceStartTime}} - {{serviceInfo.xlServiceEndTime}})
+                    <span ng-show="serviceInfo.xlServiceLanguage ">{{ 'SERVICE_INFO.XL_LANGUAGE.' + serviceInfo.xlServiceLanguage | translate }}</span>
+                </div>
+                <div ng-switch-default>
+                    {{ 'SERVICE_INFO.XL_SERVICE_NOT_ACTIVE' | translate }}
+                </div>
+            </div>
+
+            <div ng-show="serviceInfo.overrideListUsed && serviceInfo.overrideList.length" class="row">
+                <div>{{ 'SERVICE_INFO.OVERRIDE_LIST_HEADER' | translate }}</div>
+                <div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>{{ 'SERVICE_INFO.OVERRIDE_LIST.PHONE' | translate }}</th>
+                            <th>{{ 'SERVICE_INFO.OVERRIDE_LIST.NAME' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="override in serviceInfo.overrideList" ng-class-even="'table-row-even'" ng-class-odd="'table-row-odd'">
+                            <td>{{override.phoneNumber}}</td>
+                            <td>{{override.name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="P">
+            <div class="row">{{ 'SERVICE_INFO.NOT_ACTIVE' | translate }}</div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

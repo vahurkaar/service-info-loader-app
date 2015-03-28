@@ -1,0 +1,102 @@
+<project name="service-info-loader-app" default="package" basedir=".">
+    <property name="jdk.version" value="1.6" />
+
+    <property name="lib" location="lib" />
+    <property name="src" location="src/main/java" />
+    <property name="src.test" location="src/test/java" />
+    <property name="webapp" location="src/main/webapp" />
+
+    <property name="resources" location="src/main/resources" />
+    <property name="resources.test" location="src/test/resources" />
+    
+    <property name="target" location="target" />
+
+    <path id="classpath">
+        <fileset dir="${lib}">
+            <include name="*.jar" />
+        </fileset>
+        <fileset dir="${resources}">
+            <include name="**/*" />
+        </fileset>
+    </path>
+
+    <path id="test-classpath">
+        <pathelement location="${target}/classes" />
+        <pathelement location="${target}/test-classes" />
+        <fileset dir="${lib}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp />
+
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${target}" />
+        <mkdir dir="${target}/classes" />
+        <mkdir dir="${target}/test-classes" />
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${target}/classes" classpathref="classpath"
+               includeantruntime="false" encoding="UTF-8" source="${jdk.version}" target="${jdk.version}" />
+        <copy todir="${target}/classes">
+            <fileset dir="${resources}" />
+        </copy>
+
+        <javac srcdir="${src.test}" destdir="${target}/test-classes" classpathref="test-classpath"
+               includeantruntime="false" encoding="UTF-8" source="${jdk.version}" target="${jdk.version}" />
+        <copy todir="${target}/test-classes">
+            <fileset dir="${resources.test}" />
+        </copy>
+    </target>
+
+    <target name="test" depends="compile">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath refid="test-classpath" />
+
+            <formatter type="plain" usefile="false" />
+
+            <batchtest fork="yes">
+                <fileset dir="${src.test}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="package" depends="test">
+        <war destfile="${target}/${ant.project.name}-ant.war" webxml="${webapp}/WEB-INF/web.xml" compress="false">
+            <classes dir="${target}/classes" />
+            <zipfileset dir="${lib}" prefix="WEB-INF/lib">
+                <include name="*.jar" />
+            </zipfileset>
+
+            <zipfileset dir="${lib}/provided" prefix="WEB-INF/lib-provided">
+                <include name="*.jar" />
+            </zipfileset>
+
+            <fileset dir="${lib}/spring-boot-loader">
+                <include name="**/*.*" />
+            </fileset>
+
+            <fileset dir="${webapp}">
+                <include name="**/*.*" />
+            </fileset>
+
+            <manifest>
+                <attribute name="Start-Class" value="ee.example.configuration.Application"/>
+                <attribute name="Main-Class" value="org.springframework.boot.loader.WarLauncher"/>
+            </manifest>
+        </war>
+    </target>
+
+    <target name="run" depends="package">
+        <java jar="${target}/${ant.project.name}-ant.war" fork="true" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${target}" />
+    </target>
+</project>

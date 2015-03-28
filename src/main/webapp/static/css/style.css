@@ -1,0 +1,9 @@
+.container { margin: 20px; }
+
+.row { margin-top: 5px; margin-bottom: 5px; }
+.row table { border: solid 1px; border-spacing: 0; border-collapse: collapse; }
+.row table th, .row table td { padding: 5px; border-right: 1px solid; }
+.row table th { background: #bdbdbd; }
+
+.table-row-odd { background: none; }
+.table-row-even { background: #ececec; }

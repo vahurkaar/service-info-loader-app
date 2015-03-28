@@ -1,0 +1,24 @@
+{
+    "SERVICE_INFO": {
+        "QUERY_ID": "Päringu id",
+        "CONTACT_PHONE": "Telefon",
+        "LANGUAGE_TITLE": "Keel",
+        "LANGUAGE": {
+            "I": "inglise keel",
+            "E": "eesti keel"
+        },
+        "ACTIVE_UNTIL": "Teenus aktiivne kuni",
+        "XL_SERVICE_ACTIVE": "XL-teenus aktiivne",
+        "XL_LANGUAGE": {
+            "I": "inglise keeles",
+            "E": "eesti keeles"
+        },
+        "XL_SERVICE_NOT_ACTIVE": "XL-teenus mitteaktiivne",
+        "OVERRIDE_LIST_HEADER": "Välja arvatud",
+        "OVERRIDE_LIST": {
+            "PHONE": "Telefon",
+            "NAME": "Nimi"
+        },
+        "NOT_ACTIVE": "Teenus mitteaktiivne"
+    }
+}

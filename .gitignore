@@ -1,10 +1,41 @@
-*.class
+# OS generated files
+##############################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Eclipse project files
+##############################
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA project files
+##############################
+.idea
+*.iml
+out/
+
+# Maven target (and test results) folders
+##############################
+target/
+test-output/
+overlays/
+
+# Other temporary files
+##############################
+*.swp
+*~
+
+# Java stackdump file
+##############################
+*.stackdump
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
