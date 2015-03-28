@@ -6,5 +6,6 @@ which can be executed from the command line, as well as in a servlet container.
 The client side webpage is implemented with AngularJS. I also used Angular Translate to experiment with internationalization possibilities.
 
 I made two versions of the building mechanism, for Ant and Maven.
-a. ant clean run
-b. mvn clean package && java -jar target/service-info-loader-app.war
+
+1. ant clean run
+2. mvn clean package && java -jar target/service-info-loader-app.war
